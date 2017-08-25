@@ -45,7 +45,28 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(R.id.green).setChecked(green);
         menu.findItem(R.id.blue).setChecked(blue);
 
+        menu.setGroupVisible(R.id.colorGroup, color);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nextImage:
+                imageIndex++;
+                if (imageIndex >= imageResIds.length) {
+                    imageIndex = 0;
+                }
+                loadImage();
+                break;
+            case R.id.color:
+                color = !color;
+                updateSaturation();
+                invalidateOptionsMenu();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updateSaturation() {
